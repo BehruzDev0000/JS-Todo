@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style type="text/tailwindcss"></style>
+  </head>
+  <body class="bg-gray-100">
+    <header class="px-5 py-4 bg-slate-400">
+      <div class="text-center">
+        <h2 class="font-semibold text-[30px] text-white">Todo List</h2>
+      </div>
+    </header>
+
+    <main class="mt-[10px]">
+      <div>
+        <div class="flex items-center justify-center gap-[20px]">
+          <form autocomplete="off" class="create-todo flex items-center justify-center gap-[20px]">
+            <input class="text-white placeholder:text-white text-[16px] bg-slate-400 outline-none rounded-md px-2 py-3 w-[300px]" type="text" name="todos" placeholder="Enter todo name" required>
+            <button type="submit" class="px-5 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600">
+              Add
+            </button>
+          </form>
+          <select class="todo-filter outline-none rounded-md border border-[#c3c3c3] py-2 px-2 bg-slate-300 text-blue-600">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="uncompleted">Uncompleted</option>
+          </select>
+        </div>
+        <ul class="list w-[500px] flex flex-col gap-[10px] mx-auto mt-[30px]"></ul>
+      </div>
+    </main>
+
+    <div class="modal-wrapper hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+      <div class="modal-inner bg-white rounded-lg p-8 max-w-md w-full mx-4"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

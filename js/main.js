@@ -4,7 +4,7 @@ const elFilter = document.querySelector(".todo-filter");
 const modalWrapper = document.querySelector(".modal-wrapper");
 const modalInner = document.querySelector(".modal-inner");
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "/api";
 
 function showModal(open = false) {
   if (open) {
@@ -38,7 +38,7 @@ function openEditModal(id, content) {
   modalInner.innerHTML = `
     <h3 class="text-2xl font-semibold text-center mb-4 text-gray-800">Edit Todo</h3>
     <form class="edit-form flex flex-col gap-4">
-      <input type="text" name="edit-todo" class="w-full px-4 py-2 border-2 border-slate-300 rounded-md outline-none focus:border-slate-400" value="${content}" required>
+      <input type="text" name="edit-todo" class="w-full px-4 py-2 border-2 border-slate-300 rounded-md outline-none focus:border-slate-400" required>
       <div class="flex justify-center gap-4">
         <button type="button" class="cancel-btn px-6 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500">Cancel</button>
         <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Save</button>
@@ -47,6 +47,7 @@ function openEditModal(id, content) {
   `;
 
   modalInner.querySelector(".cancel-btn").onclick = () => showModal(false);
+  modalInner.querySelector("[name='edit-todo']").value = content;
   modalInner.querySelector(".edit-form").onsubmit = async (e) => {
     e.preventDefault();
     const newContent = e.target["edit-todo"].value.trim();
@@ -72,7 +73,6 @@ function renderFunction(arr, list) {
         <button class="toggle-btn flex-shrink-0 w-[30px] h-[30px] rounded-full border-2 ${item.isCompleted ? "bg-green-500 border-green-500" : "bg-white border-gray-400"} flex items-center justify-center hover:scale-110 transition">${item.isCompleted ? '<span class="text-white text-xl font-bold">✓</span>' : ""}
         </button>
         <span class="todo-text ${item.isCompleted ? "text-gray-500 line-through" : "text-white"} text-[20px] overflow-hidden text-ellipsis whitespace-nowrap flex-1 cursor-pointer">
-          ${item.content}
         </span>
       </div>
       <div class="flex items-center gap-[10px] flex-shrink-0">
@@ -89,6 +89,7 @@ function renderFunction(arr, list) {
       </div>
     `;
 
+    elItem.querySelector(".todo-text").textContent = item.content;
     elItem.addEventListener("click", async (e) => {
       if (e.target.closest(".toggle-btn") || e.target.closest(".todo-text")) {
         await toggleTodo(item.id);
